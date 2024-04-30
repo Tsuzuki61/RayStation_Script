@@ -1,0 +1,18 @@
+<Window
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="With or not Marker" MaxHeight="600" Width="300" SizeToContent="WidthAndHeight">
+ <Grid>
+ <DockPanel Name="mainDockPanel">
+  <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Top">
+         <TextBlock Text="Please select the presence or absence of marker" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
+         <ComboBox x:Name="IsMarkerCombo" SelectionChanged="IsMarkerCombo_Changed" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="120">
+			<x:String>Yes</x:String>
+			<x:String>No</x:String>
+		</ComboBox>
+         <RadioButton Content="Yes"  Name="YesRadioButton" Margin="0 0 0 5"/>
+         <RadioButton Content="No"   Name="NoRadioButton"/>
+         <Button Content="Confirmed" Name="ConfirmedButton" Margin="0 10 0 0" Click="ConfirmedButton_Click">
+  </StackPanel>
+ </Grid>
+</Window>

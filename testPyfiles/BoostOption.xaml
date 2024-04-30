@@ -1,0 +1,35 @@
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Boost Plan Option" MaxHeight="600" Width="300" SizeToContent="WidthAndHeight">
+	<DockPanel Name="mainDockPanel">
+	<TextBlock Text="Please select Plan option" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+		<DockPanel DockPanel.Dock="Top">
+			<TextBlock Text="Please enter the prescription dose" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
+				<TextBox x:Name = "PreDose" Text = "7800" TextChanged = "PreDoseChanged" Margin="5" TextAlignment="Center" DockPanel.Dock="Top" Width = "50"/>
+				<TextBlock Text="cGy" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
+				<Popup IsOpen="False" x:Name= "DosePopUp" PlacementTarget="{Binding ElementName=PreDose}" Placement="Top">
+					<TextBlock Text="Value is not entered" Background="White" Margin="1" TextWrapping="Wrap" TextAlignment="Center"/>
+				</Popup>
+			</StackPanel>
+		</DockPanel>
+		<TextBlock Text="Please input Boost Plan Fractions" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+		<TextBlock x:Name="TotalFractions" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+		<Popup IsOpen="False" x:Name= "FrPopUp" PlacementTarget="{Binding ElementName=TotalFractions}" Placement="Top">
+			<TextBlock Text="Total dose or fraction is different" Background="White" Margin="1" TextWrapping="Wrap" TextAlignment="Center"/>
+		</Popup>
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button Content="OK" Width="50" Margin="5" Click="OK_Clicked"/>
+			<Button Content="Cancel" Width="50" Margin="5" Click="Cancel_Clicked"/>
+		</StackPanel>
+		<ScrollViewer>
+		<Grid DockPanel.Dock="Top" Name="BoostOptGrid">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+		</Grid>
+		</ScrollViewer>
+	</DockPanel>
+</Window>

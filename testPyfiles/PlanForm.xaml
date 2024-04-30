@@ -1,0 +1,31 @@
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Plan Create Option" MaxHeight="600" Width="300" SizeToContent="WidthAndHeight">
+	<DockPanel Name="mainDockPanel">
+		<DockPanel Name="isMarkerDockPanel" DockPanel.Dock="Top">
+			<TextBlock Text="Please select the presence or absence of marker" HorizontalAlignment ="Left" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+			<ComboBox x:Name="IsMarkerCombo" SelectionChanged="IsMarkerCombo_Changed" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="120">
+				<x:String>With Marker</x:String>
+				<x:String>Without Marker</x:String>
+			</ComboBox>
+		</DockPanel>
+		<DockPanel Name="IsBoostDockPanel" DockPanel.Dock="Top">
+			<TextBlock Text="Please select whether Boost Plan is necessary" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+			<StackPanel Name="RadioStack" Orientation="Vertical" DockPanel.Dock="Top" HorizontalAlignment="Center">
+				<RadioButton x:Name="IsInitial" Margin="5" IsChecked="True" Checked="InitialPlanChecked">Initial Plan Only</RadioButton>
+				<RadioButton x:Name="IsBoost" Margin="5" Checked="BoostPlanChecked">With Boost Plan</RadioButton>
+			</StackPanel>
+		</DockPanel>
+		<DockPanel Name="CTV_Select_Dock" DockPanel.Dock="Top">
+			<TextBlock x:Name="InitialText" Text="Please select ROI used as CTV" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+			<ComboBox x:Name="InitialCTV_Combo" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="120"/>
+			<TextBlock x:Name="BoostText" Text="Please select ROI used as CTV for boost plan" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top" Visibility="Collapsed"/>
+			<ComboBox x:Name="BoostCTV_Combo" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="120"  Visibility="Collapsed"/>
+		</DockPanel>
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button Content="OK" Width="50" Margin="5" Click="OKClicked"/>
+			<Button Content="Cancel" Width="50" Margin="5" Click="CancelClicked"/>
+		</StackPanel>
+	</DockPanel>
+</Window>

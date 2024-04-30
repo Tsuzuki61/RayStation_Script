@@ -1,0 +1,109 @@
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+x:Name="Caption" Title="ReportSetting"  Width="500" SizeToContent="WidthAndHeight">
+<DockPanel Name="mainDockPanel">
+	<StackPanel x:Name = "SPanel" 
+				Orientation="Vertical"
+				HorizontalAlignment="Center"
+				DockPanel.Dock="Top">
+		<TextBlock Name = "TargetTextBlock"
+			TextWrapping="Wrap"
+			Margin="5"
+			TextAlignment="Center"/>
+		<Grid x:Name = "ThicknessSetGrid"
+					Margin="5">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Text="Please select an image interval to output"
+					   Grid.Row = "0"
+					   Grid.Column = "0"
+					   TextWrapping="Wrap"
+					   Margin="5"
+					   TextAlignment="Center"/>
+			<ComboBox x:Name="IntervalCombo"
+					  Grid.Row = "0"
+					  Grid.Column = "1"
+					  SelectionChanged = "IntervalCombo_Changed"
+					  Margin="5"
+					  Width="150"
+					  HorizontalAlignment="Right"/>
+			<TextBlock Text="Enter the number of images to add"
+					   Grid.Row = "2"
+					   Grid.Column = "0"
+					   TextWrapping="Wrap"
+					   Margin="5"
+					   TextAlignment="Center"/>
+			<TextBlock x:Name="NumberTextBlock"
+					   Grid.Row = "1"
+					   Grid.Column = "1"
+					   TextWrapping="Wrap"
+					   Margin="5"
+					   TextAlignment="Center"/>
+			<TextBlock Text="Check the number of images to be output"
+					   Grid.Row = "1"
+					   Grid.Column = "0"
+					   TextWrapping="Wrap"
+					   Margin="5"
+					   TextAlignment="Center"/>
+			<TextBox Name="AdditionalTextBox"
+					 TextChanged="AdditionalTextBoxChanged"
+					 Grid.Row = "2"
+					 Grid.Column = "1"
+					 Margin="5"/>
+		</Grid>
+		<DockPanel DockPanel.Dock="Top" MaxHeight="600">
+			<ScrollViewer x:Name="Scroll">
+				<ListBox x:Name="RoiListBox" SelectionChanged = "ListItemClick">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
+							<TextBlock Text="{Binding Type}"/>
+							<DataGrid ItemsSource="{Binding RoiPropertys}" AutoGenerateColumns = "False">
+								<DataGrid.Columns> 
+									<!-- <DataGridCheckBoxColumn Header = "View" Binding = "{Binding View}" /> -->
+									<DataGridTemplateColumn IsReadOnly="True" Header="View">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<CheckBox IsChecked="{Binding View,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+													HorizontalAlignment="Center" VerticalAlignment="Center"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+									<DataGridTextColumn Header = "ROI Name" Binding ="{Binding ROI}" />
+								</DataGrid.Columns>
+							</DataGrid>
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</ScrollViewer>
+		</DockPanel>
+	</StackPanel>
+	
+	<StackPanel DockPanel.Dock="Bottom"
+					Orientation="Horizontal"
+					HorizontalAlignment="Right">
+			<Button Content = "OK"
+					Width="50"
+					Margin="10"
+					Click="OKClicked"/>
+			<Button Content="Cancel"
+					Width="50"
+					Margin="10"
+					Click="CancelClicked"/>
+	</StackPanel>
+	<StackPanel DockPanel.Dock="Bottom"
+					Orientation="Horizontal"
+					HorizontalAlignment="left">
+			<CheckBox Name ="ViewEnableCheckBox" Content ="Enable ROI Hide/Show" Checked = "CheckBoxCheckd" Unchecked="CheckBoxUncheckd"/>
+	</StackPanel>
+</DockPanel>
+</Window>

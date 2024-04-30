@@ -1,0 +1,63 @@
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Plan Setting Option" MaxHeight="600" MaxWidth="1000" SizeToContent="WidthAndHeight">
+<Window.Resources>
+	<DataTemplate x:Key="BeamSetParameter" x:Shared="false">
+		<StackPanel>
+			<ListBox ItemsSource="{Binding}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						
+		</StackPanel>
+	</DataTemplate>
+</Window.Resources>
+	<DockPanel Name="mainDockPanel">
+		<StackPanel Name="mainStack" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+			<DockPanel Name="PlanDockPanel">
+				<DockPanel Name="PartDockPanel" DockPanel.Dock="Top">
+					<TextBlock Text="Please select irradiation site" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+					<ComboBox x:Name="PartCombo" ItemsSource = "{Binding Path=.}" SelectionChanged = "PartCombo_Changed" IsSynchronizedWithCurrentItem = "True" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="120"/>
+				</DockPanel>
+				<DockPanel Name="DoseGridDockPanel" DockPanel.Dock="Top">
+					<TextBlock Text="Please check DoseGrid setting" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+					<StackPanel Name="DoseGridStack" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+						<TextBlock Text="X :" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
+						<TextBox x:Name = "GridX" Text = "0.2" LostFocus = "DoseGridXLostFocus" Margin="5" TextAlignment="Center" Width = "50"/>
+						<Popup IsOpen="False" x:Name= "GridXPopUp" PlacementTarget="{Binding ElementName=GridX}" Placement="Top">
+							<TextBlock Text="Value is not float" Background="White" Margin="1" TextWrapping="Wrap" TextAlignment="Center"/>
+						</Popup>
+						<TextBlock Text="Y :" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
+						<TextBox x:Name = "GridY" Text = "0.2" LostFocus = "DoseGridYLostFocus" Margin="5" TextAlignment="Center" Width = "50"/>
+						<Popup IsOpen="False" x:Name= "GridYPopUp" PlacementTarget="{Binding ElementName=GridY}" Placement="Top">
+							<TextBlock Text="Value is not float" Background="White" Margin="1" TextWrapping="Wrap" TextAlignment="Center"/>
+						</Popup>
+						<TextBlock Text="Z :" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
+						<TextBox x:Name = "GridZ" Text = "0.2" LostFocus = "DoseGridZLostFocus" Margin="5" TextAlignment="Center" Width = "50"/>
+						<Popup IsOpen="False" x:Name= "GridZPopUp" PlacementTarget="{Binding ElementName=GridZ}" Placement="Top">
+							<TextBlock Text="Value is not float" Background="White" Margin="1" TextWrapping="Wrap" TextAlignment="Center"/>
+						</Popup>
+					</StackPanel>
+				</DockPanel>
+				<DockPanel  DockPanel.Dock="Top"/>
+			</DockPanel>
+			<DockPanel Name="BeamSetDockPanel">
+				<DockPanel Name="ProtocolDockPanel" DockPanel.Dock="Top">
+					<TextBlock Text="Please select Protocol" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+					<ComboBox x:Name="ProtocolCombo" SelectionChanged="ProtocolCombo_Changed" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="120"/>
+				</DockPanel>
+				<DockPanel Name="BeamSetSettingDockPanel" DockPanel.Dock="Top">
+					<ScrollViewer HorizontalScrollBarVisibility = "Auto" VerticalScrollBarVisibility = "Auto" MaxHeight = "400" MaxWidth = "600">
+						<StackPanel Name = "BeamSetStack" Orientation="Vertical" HorizontalAlignment="Center"/>
+						
+						<!-- grid insert here -->
+					</ScrollViewer>
+				</DockPanel>
+			</DockPanel>
+		</StackPanel>
+	<StackPanel Name = "ButtonStack" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+		<Button Content="OK" Width="50" Margin="5" Click="OKClicked"/>
+		<Button Content="Cancel" Width="50" Margin="5" Click="CancelClicked"/>
+	</StackPanel>
+	</DockPanel>
+</Window>

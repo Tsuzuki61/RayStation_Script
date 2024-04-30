@@ -1,0 +1,31 @@
+<!-- delete_evaluation_doses.xaml
+ XAML code for delete_evaluation_doses.py-->
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Delete evaluation doses" MaxHeight="600" Width="300" SizeToContent="WidthAndHeight">
+<DockPanel Name="mainDockPanel">
+    <TextBlock Text="Select evaluation doses to delete" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+    <DockPanel DockPanel.Dock="Top">
+        <TextBlock Text="Dose" Margin="27,5,5,5" Grid.Row="0" Grid.Column="0" DockPanel.Dock="Left"/>
+        <TextBlock Text="Examination" Margin="5,5,20,5" Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" TextAlignment="Right"/>
+    </DockPanel>
+    <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+        <Button Content="Delete doses" Margin="5" Click="DeleteClicked"/>
+        <Button Content="Cancel" Margin="5" Click="CancelClicked"/>
+    </StackPanel>
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button Content="Select all" Margin="5" Click="SelectAllClicked"/>
+        <Button Content="Select all perturbed doses" Margin="5" Click="SelectAllPerturbedClicked"/>
+        <Button Content="Deselect all" Margin="5" Click="DeselectAllClicked"/>
+    </StackPanel>
+    <ScrollViewer>
+        <Grid DockPanel.Dock="Top" Name="doseGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition MinWidth="70"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </ScrollViewer>
+</DockPanel>
+</Window>

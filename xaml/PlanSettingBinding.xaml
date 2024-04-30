@@ -1,0 +1,419 @@
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Plan Setting Option" MaxHeight="1000" MaxWidth="1000" SizeToContent="WidthAndHeight">
+<Window.Resources>
+	
+</Window.Resources>
+	<DockPanel Name="mainDockPanel">
+		<StackPanel Name="mainStack" Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+			<DockPanel Name="PlanDockPanel">
+				<TextBlock Text="Please select irradiation site" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+				<StackPanel Name="PartStackPanel" Orientation="Horizontal" DockPanel.Dock="Top">
+					<StackPanel Orientation="Vertical">
+					<ComboBox
+						x:Name="PartCombo"
+						ItemsSource = "{Binding Path=.Part}"
+						DisplayMemberPath="PartName"
+						SelectedValuePath="PlanSetting"
+						IsSynchronizedWithCurrentItem = "True"
+						HorizontalAlignment="Center"
+						Margin="10"
+						Height="25"
+						Width="120"/>
+					<DockPanel>
+						<TextBlock Text="Name:" Margin="5" TextAlignment="Center" DockPanel.Dock="Left"/>
+						<TextBox 
+							Text="{Binding Path=.Part/PartName ,UpdateSourceTrigger=PropertyChanged}"
+							TextWrapping="Wrap"
+							LostKeyboardFocus="TextBoxLostFocus"
+							DockPanel.Dock="Right"
+							Margin="5"
+							TextAlignment="Right"/>
+					</DockPanel>
+					</StackPanel>
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+						<Button Content="Add New Site" Click="AddNewSiteClicked" Height="25" Margin ="10"/>
+						<Button Content="Delete Site" Click="DeleteSiteClicked" Height="25" Margin ="10"/>
+					</StackPanel>
+				</StackPanel>
+			</DockPanel>
+			<DockPanel Name="ProtocolDockPanel">
+				<TextBlock Text="Please select Protocol" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+				<StackPanel Name="ProtocolStackPanel" DockPanel.Dock="Top" Orientation="Horizontal">
+					<StackPanel Orientation="Vertical">
+					<ComboBox x:Name="ProtocolCombo"
+						ItemsSource="{Binding Path=.Part/PlanSetting.PlanProtocol}"
+						DisplayMemberPath="ProtocolName"
+						IsSynchronizedWithCurrentItem = "True"
+						HorizontalAlignment="Center"
+						SelectionChanged="ProtocolComboChanged"
+						Margin="10"
+						Height="25"
+						DockPanel.Dock="Top"
+						Width="200"/>
+					<DockPanel>
+						<TextBlock Text="Name:" Margin="5" TextAlignment="Center" DockPanel.Dock="Left"/>
+						<TextBox 
+							Text="{Binding Path=.Part/PlanSetting.PlanProtocol/ProtocolName,UpdateSourceTrigger=PropertyChanged}"
+							TextWrapping="Wrap"
+							LostKeyboardFocus="TextBoxLostFocus"
+							DockPanel.Dock="Right"
+							Margin="5"
+							TextAlignment="Right"/>
+					</DockPanel>
+					</StackPanel>
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+						<Button Content="Add New Protocol" Click="AddNewProtocolClicked" Height="25" Margin ="10"/>
+						<Button Content="Delete Protocol" Click="DeleteProtocolClicked" Height="25" Margin ="10"/>
+					</StackPanel>
+				</StackPanel>
+			</DockPanel>
+			
+		</StackPanel>
+		<DockPanel
+			Name="PlanProtocolDock"
+			DockPanel.Dock="Top">
+			<StackPanel Name="DoseGridStack" DockPanel.Dock="Left">
+				<TextBlock
+					Text="Please input DoseGrid setting"
+					TextWrapping="Wrap"
+					Margin="5"
+					TextAlignment="Center"
+					DockPanel.Dock="Top"/>
+				<Grid Name="DoseGridSettingGrid"
+					DataContext="{Binding Path=.Part/PlanSetting.DoseGrid}">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Text="X :"
+						TextWrapping="Wrap"
+						Margin="5"
+						TextAlignment="Right"
+						DockPanel.Dock="Top"
+						Grid.Row="0"
+						Grid.Column="0"/>
+					<TextBox
+						Text="{Binding Path=x,UpdateSourceTrigger=PropertyChanged}"
+						TextWrapping="Wrap"
+						Margin="5"
+						TextAlignment="Right"
+						DockPanel.Dock="Top"
+						Grid.Row="0"
+						Grid.Column="1"/>
+					<TextBlock
+						Text="Y :"
+						TextWrapping="Wrap"
+						Margin="5"
+						TextAlignment="Right"
+						DockPanel.Dock="Top"
+						Grid.Row="1"
+						Grid.Column="0"/>
+					<TextBox
+						Text="{Binding Path=y,UpdateSourceTrigger=PropertyChanged}"
+						TextWrapping="Wrap"
+						Margin="5"
+						TextAlignment="Right"
+						DockPanel.Dock="Top"
+						Grid.Row="1"
+						Grid.Column="1"/>
+					<TextBlock
+						Text="Z :"
+						TextWrapping="Wrap"
+						Margin="5"
+						TextAlignment="Right"
+						DockPanel.Dock="Top"
+						Grid.Row="2"
+						Grid.Column="0"/>
+					<TextBox
+						Text="{Binding Path=z,UpdateSourceTrigger=PropertyChanged}"
+						TextWrapping="Wrap"
+						Margin="5"
+						TextAlignment="Right"
+						DockPanel.Dock="Top"
+						Grid.Row="2"
+						Grid.Column="1"/>
+				</Grid>
+			</StackPanel>
+			<StackPanel Name="BeamSetSettingStack" DockPanel.Dock="Right">
+				<TabControl Name="BeamSetTabControl" Margin = "10" ItemsSource="{Binding Path=.Part/PlanSetting.PlanProtocol/BeamSet}">
+					<TabControl.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}"/>
+						</DataTemplate>
+					</TabControl.ItemTemplate>
+					<TabControl.ContentTemplate>
+						<DataTemplate>
+							<DockPanel>
+								<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
+									<Button Content="Add New BeamSet" Click="AddNewBeamSetClicked" Margin="5"/>
+									<Button Content="Delete BeamSet" Click="DeleteBeamSetClicked" Margin="5"/>
+								</StackPanel>
+							<StackPanel
+								Name = "BeamSetStack"
+								Orientation="Vertical"
+								HorizontalAlignment="Center">
+							<StackPanel
+								Orientation="Horizontal"
+								HorizontalAlignment="Center">
+								<StackPanel
+									Name="BeamSetViewStack"
+									Orientation="Vertical"
+									HorizontalAlignment="Center"
+									Width="250">
+								<TextBlock Text="BeamSet Setting"/>
+								<Grid DataContext="{Binding}">
+									<Grid.RowDefinitions>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<TextBlock
+										Text="Name :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="0"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Name,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="0"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="NumberOfFractions :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="1"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=NumberOfFractions,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="1"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="DoseValue(cGy) :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="2"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=DoseValue,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										TextChanged="DoseValueChanged"
+										LostKeyboardFocus="TextBoxLostFocus"
+										Grid.Row="2"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Dose/fr(cGy) :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="3"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Dose_fr,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										TextChanged="Dose_frChanged"
+										LostKeyboardFocus="TextBoxLostFocus"
+										Grid.Row="3"
+										Grid.Column="1"/>
+								</Grid>
+								</StackPanel>
+								<StackPanel
+									Name="RobustnessViewStack"
+									Orientation="Vertical"
+									HorizontalAlignment="Center"
+									Width="{Binding ElementName=BeamSetViewStack,Path=Width}">
+								<TextBlock Text="Robustness Setting"/>
+								<Grid DataContext="{Binding .RobustnessSetting}">
+									<Grid.RowDefinitions>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<TextBlock
+										Text="Superior :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="0"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Sup,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="0"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Inferior :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="1"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Inf,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="1"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Right :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="2"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=R,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="2"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Left :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="3"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=L,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="3"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Anterior :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="4"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Ant,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="4"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Posterior :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="5"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Pos,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="5"
+										Grid.Column="1"/>
+									<TextBlock
+										Text="Uncertainty :"
+										TextWrapping="Wrap"
+										Margin="5"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="6"
+										Grid.Column="0"/>
+									<TextBox
+										Text="{Binding Path=Uncertainty,UpdateSourceTrigger=PropertyChanged}"
+										TextWrapping="Wrap"
+										Margin="6"
+										TextAlignment="Right"
+										DockPanel.Dock="Top"
+										Grid.Row="6"
+										Grid.Column="1"/>
+								</Grid>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<ScrollViewer HorizontalScrollBarVisibility = "Auto" VerticalScrollBarVisibility = "Auto" MaxHeight = "150" MaxWidth = "600">
+							<DataGrid
+								Name="BeamDataGrid"
+								ItemsSource="{Binding .Beams}"
+								AutoGenerateColumns="False"
+								CanUserAddRows="False"
+								Margin="5">
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="BeamName" Binding="{Binding BeamName}"/>
+									<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+									<DataGridTextColumn Header="GantryAngle" Binding="{Binding GantryAngle}"/>
+									<DataGridTextColumn Header="CouchAngle" Binding="{Binding CouchAngle}"/>
+								</DataGrid.Columns>
+							</DataGrid>
+							</ScrollViewer>
+							<Button Content="Add New Beam" Click="AddNewBeam" Height="25" Margin="10"/>
+							</StackPanel>
+						</StackPanel><!-- BeamSetStack -->
+							</DockPanel>
+						</DataTemplate>
+					</TabControl.ContentTemplate>
+				</TabControl>
+			</StackPanel><!-- BeamSetSettingStack -->
+		</DockPanel>
+		
+	<StackPanel Name = "ButtonStack" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+		<Button Content="OK" Width="50" Margin="5" Click="OKClicked"/>
+		<Button Content="Cancel" Width="50" Margin="5" Click="CancelClicked"/>
+	</StackPanel>
+	</DockPanel>
+</Window>

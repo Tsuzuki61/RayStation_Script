@@ -1,0 +1,25 @@
+<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Clinical Goal Setting" MaxHeight="600" Width="300" SizeToContent="WidthAndHeight">
+	<DockPanel Name="mainDockPanel">
+		<DockPanel Name="PartDockPanel" DockPanel.Dock="Top">
+			<TextBlock Text="Please select the part of irradiation" HorizontalAlignment ="Left" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+			<ComboBox x:Name="PartCombo" ItemsSource = "{Binding Path=.}" SelectionChanged = "PartCombo_Changed" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="150"/>
+		</DockPanel>
+		<DockPanel Name="ProtocolDockPanel" DockPanel.Dock="Top">
+			<TextBlock Text="Please select the protocol" HorizontalAlignment ="Left" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+			<ComboBox x:Name="ProtocolCombo" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" Width="150"/>
+		</DockPanel>
+		<DockPanel Name="CGSelectDockPanel" DockPanel.Dock="Top">
+			<TextBlock Text="Please choose a Clinical goal to view" HorizontalAlignment ="Left" TextWrapping="Wrap" Margin="5" TextAlignment="Center" DockPanel.Dock="Top"/>
+		</DockPanel>
+		<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Content="CurrentPlan" Width="100" Margin="5" Click="PlanClicked"/>
+			<Button Content="CurrentBeamSet" Width="100" Margin="5" Click="BeamSetClicked"/>
+		</StackPanel>
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button Content="Cancel" Width="50" Margin="10" Click="CancelClicked"/>
+		</StackPanel>
+	</DockPanel>
+</Window>
